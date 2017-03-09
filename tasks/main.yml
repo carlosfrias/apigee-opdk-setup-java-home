@@ -5,8 +5,16 @@
     msg: "Please provide java_home"
   when: java_home is not defined
 
+- name: Remove old JAVA_HOME
+  lineinfile:
+    create: yes
+    dest: "{{ apigee_installation_home }}/etc/defaults.sh"
+    regexp: "^JAVA_HOME="
+    state: absent
+    line: 'JAVA_HOME={{ java_home }}'
+    backup: yes
+
 - name: Update environment with JAVA_HOME
-  become: yes
   lineinfile:
     create: yes
     dest: "{{ apigee_installation_home }}/etc/defaults.sh"
@@ -15,10 +23,7 @@
     backup: yes
 
 - name: Update environment with path JAVA_HOME
-  become: yes
   lineinfile:
-    create: yes
     dest: "{{ apigee_installation_home }}/etc/defaults.sh"
     line: 'PATH=$JAVA_HOME/bin:$PATH'
     backup: yes
-
