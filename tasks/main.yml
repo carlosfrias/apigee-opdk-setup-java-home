@@ -1,17 +1,24 @@
 ---
 # tasks file for apigee-opdk-setup-java-home
----
 - name: Validate that java_home is available
   fail:
     msg: "Please provide java_home"
   when: java_home is not defined
 
-- name: Update environment with path to JAVA_HOME
+- name: Update environment with JAVA_HOME
   become: yes
   lineinfile:
     create: yes
     dest: "{{ apigee_installation_home }}/etc/defaults.sh"
     regexp: "^JAVA_HOME"
     line: 'JAVA_HOME={{ java_home }}'
+    backup: yes
+
+- name: Update environment with path JAVA_HOME
+  become: yes
+  lineinfile:
+    create: yes
+    dest: "{{ apigee_installation_home }}/etc/defaults.sh"
+    line: 'PATH=$JAVA_HOME/bin:$PATH'
     backup: yes
 
