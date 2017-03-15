@@ -9,18 +9,26 @@
   lineinfile:
     create: yes
     dest: "{{ apigee_installation_home }}/etc/defaults.sh"
-    regexp: "^JAVA_HOME="
+    regexp: "{{ item }}"
     state: absent
-    line: 'JAVA_HOME={{ java_home }}'
     backup: yes
+  with_items:
+  - "^JAVA_HOME="
+  - "^export JAVA_HOME"
+  - "^PATH=$JAVA_HOME/bin:$PATH"
 
 - name: Update environment with JAVA_HOME
   lineinfile:
     create: yes
     dest: "{{ apigee_installation_home }}/etc/defaults.sh"
-    regexp: "^JAVA_HOME"
-    line: 'JAVA_HOME={{ java_home }}'
+    regexp: "{{ item.regexp }}"
+    line: '{{ item.line }}'
     backup: yes
+  with_items:
+  - { regexp: "^JAVA_HOME=", line: "JAVA_HOME={{ java_home }}" }
+  - { regexp: "^PATH=$JAVA_HOME/bin:$PATH", line: "^PATH=$JAVA_HOME/bin:$PATH"}
+  - { regexp: "^export JAVA_HOME", line: "^export JAVA_HOME"}
+
 
 - name: Update environment with path JAVA_HOME
   lineinfile:
