@@ -15,7 +15,7 @@
   with_items:
   - "^JAVA_HOME="
   - "^export JAVA_HOME"
-  - "^PATH=$JAVA_HOME/bin"
+  - "^PATH=\$JAVA_HOME/bin"
 
 - name: Update environment with JAVA_HOME
   lineinfile:
