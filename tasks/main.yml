@@ -26,7 +26,7 @@
     backup: yes
   with_items:
   - { regexp: "^JAVA_HOME=", line: "JAVA_HOME={{ java_home }}" }
-  - { regexp: "^PATH=$JAVA_HOME/bin:$PATH", line: "PATH=$JAVA_HOME/bin:$PATH"}
+  - { regexp: "^PATH=\\$JAVA_HOME/bin:\\$PATH", line: "PATH=$JAVA_HOME/bin:$PATH"}
   - { regexp: "^export JAVA_HOME", line: "export JAVA_HOME"}
 
 
