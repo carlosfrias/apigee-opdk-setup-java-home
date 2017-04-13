@@ -5,6 +5,11 @@
     msg: "Please provide java_home"
   when: java_home is not defined
 
+- name: Refresh cache with provided java_home
+  cache:
+    key: 'java_home'
+    value: '{{ java_home }}'
+
 - name: Remove old JAVA_HOME
   lineinfile:
     create: yes
