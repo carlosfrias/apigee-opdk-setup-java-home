@@ -18,8 +18,8 @@
       regexp: "{{ item }}"
       state: absent
       backup: yes
-      owner: "{{ opdk_user_name }}"
-      group: "{{ opdk_group_name }}"
+      owner: "{{ opdk_user_name | default('apigee') }}"
+      group: "{{ opdk_group_name | default('apigee') }}"
     with_items:
     - "^JAVA_HOME="
     - "^export JAVA_HOME"
@@ -33,8 +33,8 @@
       line: '{{ item.line }}'
       backup: yes
       state: present
-      owner: "{{ opdk_user_name }}"
-      group: "{{ opdk_group_name }}"
+      owner: "{{ opdk_user_name | default('apigee') }}"
+      group: "{{ opdk_group_name | default('apigee') }}"
     with_items:
     - { regexp: "^JAVA_HOME=", line: "JAVA_HOME={{ java_home }}" }
     - { regexp: "^PATH=\\$JAVA_HOME/bin:\\$PATH", line: "PATH=$JAVA_HOME/bin:$PATH"}
