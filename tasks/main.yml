@@ -6,9 +6,9 @@
   when: java_home is not defined
 
 - name: Refresh cache with provided java_home
-  cache:
-    key: 'java_home'
-    value: '{{ java_home }}'
+  set_fact:
+    cacheable: yes
+    java_home: '{{ java_home }}'
 
 - block:
   - name: Remove old JAVA_HOME
